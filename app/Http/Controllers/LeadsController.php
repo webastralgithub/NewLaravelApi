@@ -80,6 +80,12 @@ class LeadsController extends Controller
                         [
                             'First_Name' => $request->input('first_name'),
                             'Last_Name' => $request->input('last_name'),
+                            'Mobile' => $request->input('mobile'),
+                            'Email' => $request->input('email'),
+                            'DOB' => $request->input('dob'),
+                            'Tax_File_Number' => $request->input('tax_file_number'),
+                            'Agreed_Terms' => $request->input('agreed_terms'),
+                            'Status' => $request->input('status')
                             // Include other required and optional fields for the prospect
                         ]
                     ]
@@ -94,6 +100,12 @@ class LeadsController extends Controller
             $message .= 'Prospect Details:' . PHP_EOL;
             $message .= 'First Name: ' . $prospect['First_Name'] . PHP_EOL;
             $message .= 'Last Name: ' . $prospect['Last_Name'] . PHP_EOL;
+            $message .= 'Mobile: ' . $prospect['Mobile'] . PHP_EOL;
+            $message .= 'Email: ' . $prospect['Email'] . PHP_EOL;
+            $message .= 'DOB: ' . $prospect['DOB'] . PHP_EOL;
+            $message .= 'Tax File Number: ' . $prospect['Tax_File_Number'] . PHP_EOL;
+            $message .= 'Agreed Terms: ' . $prospect['Agreed_Terms'] . PHP_EOL;
+            $message .= 'Status: ' . $prospect['Status'] . PHP_EOL;
             // Include other relevant prospect details
 
             // Send email using the mail() function
