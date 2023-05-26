@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class LeadsController extends Controller
 {
     public function getRecentProspects()
@@ -68,7 +68,22 @@ class LeadsController extends Controller
         $accessToken = env('ACCESS_TOKEN');
 
         $client = new Client();
-
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'mobile' => 'required|regex:/^04\d{8}$/',
+            'email' => 'required|email',
+            'dob' => 'required|date_format:Y-m-d',
+            'tax_file_number' => 'required|digits:9',
+            'agreed_terms' => 'required|in:Yes,No',
+            'status' => 'required|in:E'
+        ]);
+        if ($validator->fails()) {
+            $message = [
+                'message' => $validator->errors()->first()
+            ];
+            return response()->json($message,200);
+        }
         try {
             $response = $client->request('POST', 'https://sandbox.zohoapis.com.au/crm/v3/Leads', [
                 'headers' => [
